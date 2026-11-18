@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="nl" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jurre Vergouwe | Mijn Portfolio</title>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        bgMain: '#090b10',
+                        bgSecondary: '#121622',
+                        bgCard: '#181e2e',
+                        bgCardHover: '#1f273b',
+                        neonBlue: '#00d4ff',
+                        skyAccent: '#38bdf8',
+                        borderTech: '#252f45'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html, body {
+            background-color: #090b10;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            max-width: 100vw;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Subtiel technisch achtergrondraster */
+        .tech-grid {
+            background-size: 44px 44px;
+            background-image: 
+                linear-gradient(to right, rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+        }
+
+        /* Subtiele neon gloed en randen */
+        .tech-card {
+            background-color: #181e2e;
+            border: 1px solid #252f45;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        @media (hover: hover) {
+            .tech-card:hover {
+                border-color: rgba(0, 210, 255, 0.45);
+                box-shadow: 0 10px 30px -10px rgba(0, 210, 255, 0.15);
+                transform: translateY(-2px);
+            }
+        }
+
+        .neon-glow-text {
+            text-shadow: 0 0 24px rgba(0, 210, 255, 0.35);
+        }
+
+        /* Verberg scrollbar bij horizontale filterbalk op mobiel */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .nav-link.active {
+            color: #00d2ff;
+            background-color: rgba(0, 210, 255, 0.1);
+            border-color: rgba(0, 210, 255, 0.3);
+        }
+
+        /* Pagina-overgang animatie */
+        .page-section {
+            display: none;
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090b10;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #252f45;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #38bdf8;
+        }
+
+        /* Print stijl voor de Hardware PDF-gids */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printable-pdf-guide, #printable-pdf-guide * {
+                visibility: visible;
+            }
+            #printable-pdf-guide {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: #ffffff !important;
+                color: #0f172a !important;
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body class="tech-grid min-h-screen flex flex-col selection:bg-neonBlue selection:text-bgMain pb-16 md:pb-0">
+
+    <!-- Top Status Bar (Subtiel computerdetail) -->
+    <div class="bg-[#07090d] border-b border-borderTech text-[11px] sm:text-xs font-mono text-slate-400 py-1.5 px-3 sm:px-4">
+        <div class="max-w-6xl mx-auto flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2 sm:gap-3 truncate">
+                <span class="inline-flex items-center gap-1.5 text-neonBlue shrink-0">
+                    <span class="w-2 h-2 rounded-full bg-neonBlue animate-pulse"></span>
+                    SYS.ONLINE
+                </span>
+                <span class="hidden sm:inline text-slate-600">|</span>
+                <span class="hidden sm:inline truncate">// PORTFOLIO_JURRE_VERGOUWE</span>
+            </div>
+            <div class="flex items-center gap-2 sm:gap-4 shrink-0">
+                <span class="hidden xs:inline">RIDDERKERK</span>
+                <span class="hidden xs:inline text-slate-600">|</span>
+                <span>GEMINI • MAVO 3</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hoofdnavigatie -->
+    <header class="sticky top-0 z-40 bg-[#0a0d12]/95 backdrop-blur-md border-b border-borderTech">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-14 sm:h-16">
+                <!-- Naam & Titel (Geen JV-logo zoals gevraagd) -->
+                <button onclick="navigateTo('home')" class="flex items-center gap-2.5 sm:gap-3 text-left group focus:outline-none min-w-0">
+                    <div class="w-2 sm:w-2.5 h-7 sm:h-8 bg-neonBlue rounded-sm shrink-0 group-hover:shadow-[0_0_12px_#00d2ff] transition-all"></div>
+                    <div class="truncate">
+                        <span class="block font-bold text-white tracking-tight text-base sm:text-lg leading-none truncate">
+                            Jurre Vergouwe
+                        </span>
+                        <span class="block font-mono text-[10px] sm:text-[11px] text-skyAccent mt-1 truncate">
+                            // MIJN PORTFOLIO
+                        </span>
+                    </div>
+                </button>
+
+                <!-- Desktop Navigatie -->
+                <nav class="hidden md:flex items-center gap-2" aria-label="Hoofdmenu">
+                    <button onclick="navigateTo('home')" data-nav="home" class="nav-link active px-4 py-2 rounded-lg text-sm font-medium border border-transparent text-slate-300 hover:text-white hover:bg-bgCard transition-all">
+                        Home
+                    </button>
+                    <button onclick="navigateTo('portfolio')" data-nav="portfolio" class="nav-link px-4 py-2 rounded-lg text-sm font-medium border border-transparent text-slate-300 hover:text-white hover:bg-bgCard transition-all">
+                        Portfolio
+                    </button>
+                    <button onclick="navigateTo('freestyle')" data-nav="freestyle" class="nav-link px-4 py-2 rounded-lg text-sm font-medium border border-transparent text-slate-300 hover:text-white hover:bg-bgCard transition-all">
+                        Freestyle
+                    </button>
+                    <button onclick="navigateTo('contact')" data-nav="contact" class="nav-link px-4 py-2 rounded-lg text-sm font-medium border border-transparent text-slate-300 hover:text-white hover:bg-bgCard transition-all">
+                        Contact
+                    </button>
+                </nav>
+
+                <!-- Mobiele Menu Knop -->
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg bg-bgCard border border-borderTech text-slate-300 hover:text-neonBlue focus:outline-none shrink-0" aria-label="Menu openen">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobiele Navigatie Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-bgSecondary border-b border-borderTech px-4 pt-2 pb-4 space-y-1.5 shadow-2xl">
+            <button onclick="navigateTo('home')" data-nav="home" class="nav-link active w-full text-left px-4 py-3 rounded-lg text-sm font-medium border border-transparent text-slate-300">
+                01. Home
+            </button>
+            <button onclick="navigateTo('portfolio')" data-nav="portfolio" class="nav-link w-full text-left px-4 py-3 rounded-lg text-sm font-medium border border-transparent text-slate-300">
+                02. Portfolio
+            </button>
+            <button onclick="navigateTo('freestyle')" data-nav="freestyle" class="nav-link w-full text-left px-4 py-3 rounded-lg text-sm font-medium border border-transparent text-slate-300">
+                03. Freestyle
+            </button>
+            <button onclick="navigateTo('contact')" data-nav="contact" class="nav-link w-full text-left px-4 py-3 rounded-lg text-sm font-medium border border-transparent text-slate-300">
+                04. Contact
+            </button>
+        </div>
+    </header>
+
+    <!-- HOOFDINHOUD (4 PAGINA'S) -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-3.5 sm:px-6 lg:px-8 py-6 sm:py-12">
+
+        <!-- ========================================================= -->
+        <!-- PAGINA 1: HOME                                            -->
+        <!-- ========================================================= -->
+        <section id="page-home" class="page-section active space-y-8 sm:space-y-12">
+            
+            <!-- Hero & Persoonlijke Introductie -->
+            <div class="tech-card rounded-2xl p-4 sm:p-8 lg:p-10 relative overflow-hidden">
+                <!-- Decoratieve technische hoeklijnen -->
+                <div class="hidden sm:block absolute top-0 right-0 w-32 h-32 border-t-2 border-r-2 border-neonBlue/20 rounded-tr-2xl pointer-events-none"></div>
+                <div class="hidden sm:block absolute bottom-0 left-0 w-24 h-24 border-b-2 border-l-2 border-neonBlue/20 rounded-bl-2xl pointer-events-none"></div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-center">
+                    <!-- Profielfoto van Jurre -->
+                    <div class="lg:col-span-4 flex flex-col items-center">
+                        <div class="relative w-full max-w-[220px] sm:max-w-[280px] rounded-2xl p-1.5 sm:p-2 bg-gradient-to-b from-neonBlue/30 via-borderTech to-bgMain shadow-xl">
+                            <div class="relative overflow-hidden rounded-xl bg-bgSecondary aspect-[3/4] group">
+                                <img 
+                                    id="jurre-profile-img"
+                                    src="WhatsApp Image 2026-11-18 at 17.09.21.jpg" 
+                                    alt="Profielfoto van Jurre Vergouwe" 
+                                    class="w-full h-full object-cover object-top"
+                                    onerror="this.onerror=null; this.src='https://placehold.co/400x530/181e2e/00d4ff?text=Jurre+Vergouwe+%7C+Mavo+3';"
+                                >
+                                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#090b10] via-[#090b10]/85 to-transparent p-3 sm:p-3.5 flex items-end justify-between gap-2">
+                                    <div class="min-w-0">
+                                        <p class="font-mono text-[10px] sm:text-xs text-neonBlue truncate">14 JAAR • MAVO 3</p>
+                                        <p class="text-white font-semibold text-xs sm:text-sm truncate">Jurre Vergouwe</p>
+                                    </div>
+                                    <label for="profile-upload" class="cursor-pointer px-2 py-1 rounded bg-bgCard/90 border border-borderTech text-[10px] font-mono text-skyAccent hover:border-neonBlue transition-all shrink-0" title="Kies eigen profielfoto">
+                                        Foto
+                                    </label>
+                                    <input type="file" id="profile-upload" accept="image/*" class="hidden" onchange="previewLocalProfileImage(event)">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Snelle Profielgegevens -->
+                        <div class="w-full max-w-[260px] sm:max-w-[280px] mt-3 sm:mt-4 grid grid-cols-2 gap-2 text-xs font-mono">
+                            <div class="bg-bgSecondary border border-borderTech rounded-lg p-2.5">
+                                <span class="text-slate-400 block text-[10px]">SCHOOL</span>
+                                <span class="text-slate-200 font-medium text-[11px] sm:text-xs">Gemini College</span>
+                            </div>
+                            <div class="bg-bgSecondary border border-borderTech rounded-lg p-2.5">
+                                <span class="text-slate-400 block text-[10px]">KLAS & PLAATS</span>
+                                <span class="text-slate-200 font-medium text-[11px] sm:text-xs">Mavo 3 • Ridderkerk</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Exacte Introductietekst -->
+                    <div class="lg:col-span-8 space-y-4 sm:space-y-5">
+                        <div class="inline-flex items-center px-3 py-1 rounded-full bg-neonBlue/10 border border-neonBlue/30 text-neonBlue font-mono text-[10px] sm:text-xs leading-snug">
+                            <span>// 14 JAAR • MAVO 3 • GEMINI COLLEGE RIDDERKERK</span>
+                        </div>
+
+                        <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                            Jurre Vergouwe <span class="text-neonBlue neon-glow-text block sm:inline">| Mijn portfolio</span>
+                        </h1>
+
+                        <div class="space-y-3.5 text-slate-300 leading-relaxed text-sm sm:text-base bg-bgSecondary/70 border border-borderTech rounded-xl p-4 sm:p-6">
+                            <p class="font-semibold text-white text-base sm:text-lg">
+                                Welkom op mijn portfolio!
+                            </p>
+                            <p>
+                                Hoi, ik ben <strong class="text-white font-semibold">Jurre Vergouwe</strong>, ik ben 14 jaar en ik zit op het <strong class="text-white font-semibold">Gemini College Ridderkerk</strong>. Ik ben geïnteresseerd in technologie, computers en gaming. Ik vind het vooral leuk om computers uit elkaar te halen en te ontdekken hoe alles werkt. Ook vind ik het interessant om meer te leren over computerhardware en nieuwe technologie.
+                            </p>
+                            <p>
+                                Op school vind ik het leuk om creatief bezig te zijn en nieuwe dingen te ontwerpen. Een opdracht waar ik mee bezig ben geweest, is het bedenken van mijn eigen bedrijf <strong class="text-neonBlue font-semibold">Hydro Charge</strong>. Dit is een zelfbedacht merk sportwater. Voor deze opdracht heb ik onderzocht welke stoffen goed en minder goed zijn voor sporters en heb ik een eigen verpakking ontworpen.
+                            </p>
+                            <p>
+                                Door deze opdracht heb ik geleerd om zelfstandig na te denken en mijn eigen ideeën uit te werken. Omdat ik geïnteresseerd ben in technologie en graag nieuwe dingen ontdek, vind ik het leuk om met dit soort projecten bezig te zijn.
+                            </p>
+                            <p>
+                                Ik ben leergierig, nieuwsgierig en geef niet snel op als iets niet meteen lukt. Op deze website laat ik mijn schoolopdrachten, projecten en interesses zien. Veel plezier met rondkijken!
+                            </p>
+                        </div>
+
+                        <!-- Snelle Actieknoppen -->
+                        <div class="grid grid-cols-1 sm:flex sm:flex-wrap gap-2.5 sm:gap-3 pt-1">
+                            <button onclick="navigateTo('portfolio')" class="w-full sm:w-auto justify-center px-5 py-3 rounded-xl bg-neonBlue text-bgMain font-semibold text-sm hover:bg-skyAccent transition-all flex items-center gap-2 shadow-lg shadow-neonBlue/20">
+                                <span>Bekijk al mijn opdrachten</span>
+                                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                            </button>
+                            <button onclick="navigateTo('freestyle')" class="w-full sm:w-auto text-center px-5 py-3 rounded-xl bg-bgSecondary border border-borderTech text-white font-medium text-sm hover:border-neonBlue/50 transition-all">
+                                Freestyle: Computers & Hardware
+                            </button>
+                            <button onclick="navigateTo('contact')" class="w-full sm:w-auto text-center px-5 py-3 rounded-xl bg-bgSecondary border border-borderTech text-slate-300 font-medium text-sm hover:text-white hover:border-neonBlue/50 transition-all">
+                                Contact opnemen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wie ik ben: Overzichtskaart -->
+            <div class="tech-card rounded-2xl p-4 sm:p-6">
+                <div class="flex items-center justify-between border-b border-borderTech pb-3 mb-4">
+                    <div>
+                        <span class="font-mono text-xs text-neonBlue">// PERSOONLIJK_PROFIEL</span>
+                        <h2 class="text-lg sm:text-xl font-bold text-white mt-0.5">Wie ik ben</h2>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3 text-sm">
+                    <div class="bg-bgSecondary border border-borderTech rounded-xl p-3.5">
+                        <span class="font-mono text-[10px] text-neonBlue block">NAAM</span>
+                        <span class="text-white font-semibold">Jurre Vergouwe</span>
+                    </div>
+                    <div class="bg-bgSecondary border border-borderTech rounded-xl p-3.5">
+                        <span class="font-mono text-[10px] text-neonBlue block">LEEFTIJD</span>
+                        <span class="text-white font-semibold">14 jaar</span>
+                    </div>
+                    <div class="bg-bgSecondary border border-borderTech rounded-xl p-3.5">
+                        <span class="font-mono text-[10px] text-neonBlue block">SCHOOL</span>
+                        <span class="text-white font-semibold">Gemini College Ridderkerk</span>
+                    </div>
+                    <div class="bg-bgSecondary border border-borderTech rounded-xl p-3.5">
+                        <span class="font-mono text-[10px] text-neonBlue block">KLAS</span>
+                        <span class="text-white font-semibold">Mavo 3</span>
+                    </div>
+                    <div class="bg-bgSecondary border border-borderTech rounded-xl p-3.5">
+                        <span class="font-mono text-[10px] text-neonBlue block">WOONPLAATS</span>
+                        <span class="text-white font-semibold">Ridderkerk</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overzicht: Eigenschappen & Interesses -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                <!-- Positieve Eigenschappen -->
+                <div class="tech-card rounded-2xl p-4 sm:p-6 space-y-4 sm:space-y-5">
+                    <div class="flex items-center justify-between border-b border-borderTech pb-3">
+                        <div>
+                            <span class="font-mono text-xs text-neonBlue">// KERNKWALITEITEN</span>
+                            <h2 class="text-lg sm:text-xl font-bold text-white mt-0.5">Mijn eigenschappen</h2>
+                        </div>
+                        <svg class="w-6 h-6 text-neonBlue shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
+                        <div class="bg-bgSecondary border border-borderTech rounded-xl p-3.5 sm:p-4">
+                            <span class="text-neonBlue font-mono text-xs">01</span>
+                            <h3 class="font-semibold text-white mt-1 text-sm sm:text-base">Leergierig</h3>
+                            <p class="text-xs text-slate-400 mt-1">Altijd op zoek naar nieuwe kennis over techniek en ontwerpen.</p>
+                        </div>
+                        <div class="bg-bgSecondary border border-borderTech rounded-xl p-3.5 sm:p-4">
+                            <span class="text-neonBlue font-mono text-xs">02</span>
+                            <h3 class="font-semibold text-white mt-1 text-sm sm:text-base">Nieuwsgierig</h3>
+                            <p class="text-xs text-slate-400 mt-1">Ik wil precies weten hoe apparaten en systemen vanbinnen werken.</p>
+                        </div>
+                        <div class="bg-bgSecondary border border-borderTech rounded-xl p-3.5 sm:p-4">
+                            <span class="text-neonBlue font-mono text-xs">03</span>
+                            <h3 class="font-semibold text-white mt-1 text-sm sm:text-base">Technisch</h3>
+                            <p class="text-xs text-slate-400 mt-1">Handig met computeronderdelen, hardware en digitaal ontwerpen.</p>
+                        </div>
+                        <div class="bg-bgSecondary border border-borderTech rounded-xl p-3.5 sm:p-4">
+                            <span class="text-neonBlue font-mono text-xs">04</span>
+                            <h3 class="font-semibold text-white mt-1 text-sm sm:text-base">Geeft niet snel op</h3>
+                            <p class="text-xs text-slate-400 mt-1">Als iets niet meteen lukt, blijf ik doorzoeken tot het werkt.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wat mij interesseert -->
+                <div class="tech-card rounded-2xl p-4 sm:p-6 space-y-4 sm:space-y-5">
+                    <div class="flex items-center justify-between border-b border-borderTech pb-3">
+                        <div>
+                            <span class="font-mono text-xs text-neonBlue">// INTERESSES_&_HOBBY'S</span>
+                            <h2 class="text-lg sm:text-xl font-bold text-white mt-0.5">Waar ik enthousiast van word</h2>
+                        </div>
+                        <svg class="w-6 h-6 text-neonBlue shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <ul class="space-y-2.5 text-xs sm:text-sm text-slate-300">
+                        <li class="flex items-center gap-3 bg-bgSecondary border border-borderTech rounded-lg px-3.5 py-2.5">
+                            <span class="w-2 h-2 rounded-full bg-neonBlue shrink-0"></span>
+                            <span>Computers en computeronderdelen onderzoeken</span>
+                        </li>
+                        <li class="flex items-center gap-3 bg-bgSecondary border border-borderTech rounded-lg px-3.5 py-2.5">
+                            <span class="w-2 h-2 rounded-full bg-neonBlue shrink-0"></span>
+                            <span>Hardware uit elkaar halen en ontdekken hoe alles werkt</span>
+                        </li>
+                        <li class="flex items-center gap-3 bg-bgSecondary border border-borderTech rounded-lg px-3.5 py-2.5">
+                            <span class="w-2 h-2 rounded-full bg-neonBlue shrink-0"></span>
+                            <span>Nieuwe technologie ontdekken en gaming</span>
+                        </li>
+                        <li class="flex items-center gap-3 bg-bgSecondary border border-borderTech rounded-lg px-3.5 py-2.5">
+                            <span class="w-2 h-2 rounded-full bg-neonBlue shrink-0"></span>
+                            <span>Creatieve projecten maken en zelf dingen ontwerpen</span>
+                        </li>
+                        <li class="flex items-center gap-3 bg-bgSecondary border border-borderTech rounded-lg px-3.5 py-2.5">
+                            <span class="w-2 h-2 rounded-full bg-neonBlue shrink-0"></span>
+                            <span>Leren hoe technische dingen in elkaar zitten</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Uitgelicht Schoolproject: Hydro Charge -->
+            <div class="tech-card rounded-2xl p-5 sm:p-8 border-l-4 border-l-neonBlue">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5 sm:gap-6">
+                    <div class="space-y-3 max-w-3xl">
+                        <div class="flex flex-wrap items-center gap-2 font-mono text-xs text-neonBlue">
+                            <span>// UITGELICHT_PROJECT</span>
+                            <span>•</span>
+                            <span>D&P OPDRACHT 01</span>
+                        </div>
+                        <h2 class="text-xl sm:text-2xl font-bold text-white">Hydro Charge — Eigen merk sportwater</h2>
+                        <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                            Mijn interesses in onderzoek, ontwerp en nieuwe ideeën uitwerken komen samen in het project <strong class="text-white">Hydro Charge</strong>. Voor D&P heb ik een compleet eigen merk sportwater ontwikkeld: van het onderzoeken welke stoffen wel en niet goed zijn voor sporters tot het bedenken van het productidee, de uitstraling en het ontwerpen van de verpakking.
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-1 font-mono text-[11px] sm:text-xs">
+                            <span class="px-2.5 py-1 rounded bg-bgSecondary border border-borderTech text-skyAccent">Merkontwikkeling</span>
+                            <span class="px-2.5 py-1 rounded bg-bgSecondary border border-borderTech text-skyAccent">Ingrediëntenonderzoek</span>
+                            <span class="px-2.5 py-1 rounded bg-bgSecondary border border-borderTech text-skyAccent">Verpakkingsontwerp</span>
+                        </div>
+                    </div>
+                    <div class="shrink-0 w-full sm:w-auto">
+                        <button onclick="openProjectFromHome('hydro-charge')" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-bgSecondary border border-neonBlue/40 text-neonBlue font-semibold text-sm hover:bg-neonBlue hover:text-bgMain transition-all flex items-center justify-center gap-2">
+                            <span>Bekijk projectdetails</span>
+                            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- PAGINA 2: PORTFOLIO (6 D&P + 4 ANDERE VAKKEN)             -->
+        <!-- ========================================================= -->
+        <section id="page-portfolio" class="page-section space-y-6 sm:space-y-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-borderTech pb-5 sm:pb-6">
+                <div>
+                    <span class="font-mono text-xs text-neonBlue">// SCHOOLOPDRACHTEN_OVERZICHT</span>
+                    <h1 class="text-2xl sm:text-4xl font-extrabold text-white mt-1">Mijn Portfolio</h1>
+                    <p class="text-slate-400 text-sm sm:text-base mt-2 max-w-2xl">
+                        Hieronder staan alle 10 schoolopdrachten die ik heb gemaakt: 6 opdrachten voor het vak <strong class="text-slate-200">Dienstverlening & Producten (D&P)</strong> en 4 opdrachten voor andere vakken. Klik op een opdracht voor alle details.
+                    </p>
+                </div>
+
+                <!-- Filterknoppen (horizontaal scrollbaar op smalle schermen) -->
+                <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1" role="group" aria-label="Filter opdrachten">
+                    <button onclick="filterProjects('all')" data-filter="all" class="filter-btn active shrink-0 px-3.5 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium bg-neonBlue text-bgMain transition-all">
+                        Alles (10)
+                    </button>
+                    <button onclick="filterProjects('dp')" data-filter="dp" class="filter-btn shrink-0 px-3.5 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium bg-bgCard border border-borderTech text-slate-300 hover:text-white transition-all">
+                        D&P-opdrachten (6)
+                    </button>
+                    <button onclick="filterProjects('other')" data-filter="other" class="filter-btn shrink-0 px-3.5 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium bg-bgCard border border-borderTech text-slate-300 hover:text-white transition-all">
+                        Andere vakken (4)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grid met alle 10 projectkaarten -->
+            <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <!-- Projectkaarten worden hier dynamisch gerenderd -->
+            </div>
+
+            <!-- Snelle navigatie onderaan de pagina -->
+            <div class="tech-card rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                    <p class="text-white font-semibold text-sm sm:text-base">Benieuwd naar mijn interesses in computers en hardware?</p>
+                    <p class="text-xs text-slate-400 mt-0.5">Bekijk mijn persoonlijke Freestyle-pagina of neem direct contact met mij op.</p>
+                </div>
+                <div class="grid grid-cols-2 sm:flex gap-2.5 w-full sm:w-auto">
+                    <button onclick="navigateTo('freestyle')" class="px-4 py-2.5 rounded-xl bg-neonBlue text-bgMain font-semibold text-xs sm:text-sm hover:bg-skyAccent transition-all text-center">
+                        Freestyle &rarr;
+                    </button>
+                    <button onclick="navigateTo('contact')" class="px-4 py-2.5 rounded-xl bg-bgSecondary border border-borderTech text-white font-medium text-xs sm:text-sm hover:border-neonBlue/50 transition-all text-center">
+                        Contact
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- PAGINA 3: FREESTYLE (COMPUTERS, TECHNOLOGIE & GAMING)     -->
+        <!-- ========================================================= -->
+        <section id="page-freestyle" class="page-section space-y-8 sm:space-y-10">
+            <!-- Header & Persoonlijk Verhaal -->
+            <div class="tech-card rounded-2xl p-5 sm:p-8 space-y-4 sm:space-y-5">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <span class="font-mono text-xs text-neonBlue">// FREESTYLE_PERSOONLIJKE_PASSIE</span>
+                    <span class="font-mono text-[11px] sm:text-xs text-slate-400">HARDWARE • TECH • GAMING</span>
+                </div>
+                <h1 class="text-2xl sm:text-4xl font-extrabold text-white leading-tight">Computers, Technologie & Gaming</h1>
+                <div class="space-y-3.5 text-slate-300 text-sm sm:text-base leading-relaxed max-w-4xl">
+                    <p>
+                        Op mijn website wilde ik ook iets over mezelf laten zien. Ik hou van computers, technologie en gaming. Ik vind het vooral leuk om computers uit elkaar te halen en te kijken hoe alles werkt. Ook vind ik het interessant om meer te leren over hardware en nieuwe technologie.
+                    </p>
+                    <p>
+                        Ik heb mijn website daarom een moderne en donkere uitstraling gegeven. Ik heb zelf gekozen hoe alles eruit komt te zien, zodat het echt bij mij past. Zo is mijn website niet alleen een verzameling schoolopdrachten, maar ook een beetje een kijkje in wie ik ben.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Interactieve Sectie: Hoe werkt computerhardware? -->
+            <div class="space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-1.5">
+                    <div>
+                        <span class="font-mono text-xs text-neonBlue">// INTERACTIEVE_HARDWARE_EXPLORER</span>
+                        <h2 class="text-xl sm:text-2xl font-bold text-white mt-0.5">Hoe werkt computerhardware?</h2>
+                    </div>
+                    <p class="text-xs text-slate-400">Tik op een onderdeel om de uitleg te bekijken</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
+                    <!-- Selectieknoppen onderdelen -->
+                    <div class="lg:col-span-5 space-y-2 sm:space-y-2.5" id="hardware-buttons">
+                        <button onclick="selectHardware('cpu')" data-hw="cpu" class="hw-btn active w-full text-left p-3.5 sm:p-4 rounded-xl bg-bgCard border border-neonBlue text-white flex items-center justify-between gap-2 transition-all">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <span class="font-mono text-xs text-neonBlue shrink-0">01</span>
+                                <div class="truncate">
+                                    <span class="font-semibold block text-sm truncate">CPU (Processor)</span>
+                                    <span class="text-xs text-slate-400 block truncate">Het rekenbrein van de computer</span>
+                                </div>
+                            </div>
+                            <span class="font-mono text-xs text-neonBlue shrink-0">&rarr;</span>
+                        </button>
+
+                        <button onclick="selectHardware('gpu')" data-hw="gpu" class="hw-btn w-full text-left p-3.5 sm:p-4 rounded-xl bg-bgCard border border-borderTech text-slate-300 hover:border-neonBlue/40 flex items-center justify-between gap-2 transition-all">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <span class="font-mono text-xs text-neonBlue shrink-0">02</span>
+                                <div class="truncate">
+                                    <span class="font-semibold block text-sm truncate">GPU (Videokaart)</span>
+                                    <span class="text-xs text-slate-400 block truncate">Beelden en 3D-graphics voor gaming</span>
+                                </div>
+                            </div>
+                            <span class="font-mono text-xs text-slate-500 shrink-0">&rarr;</span>
+                        </button>
+
+                        <button onclick="selectHardware('mobo')" data-hw="mobo" class="hw-btn w-full text-left p-3.5 sm:p-4 rounded-xl bg-bgCard border border-borderTech text-slate-300 hover:border-neonBlue/40 flex items-center justify-between gap-2 transition-all">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <span class="font-mono text-xs text-neonBlue shrink-0">03</span>
+                                <div class="truncate">
+                                    <span class="font-semibold block text-sm truncate">Moederbord (Motherboard)</span>
+                                    <span class="text-xs text-slate-400 block truncate">De verbinding tussen alle onderdelen</span>
+                                </div>
+                            </div>
+                            <span class="font-mono text-xs text-slate-500 shrink-0">&rarr;</span>
+                        </button>
+
+                        <button onclick="selectHardware('ram')" data-hw="ram" class="hw-btn w-full text-left p-3.5 sm:p-4 rounded-xl bg-bgCard border border-borderTech text-slate-300 hover:border-neonBlue/40 flex items-center justify-between gap-2 transition-all">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <span class="font-mono text-xs text-neonBlue shrink-0">04</span>
+                                <div class="truncate">
+                                    <span class="font-semibold block text-sm truncate">RAM (Werkgeheugen)</span>
+                                    <span class="text-xs text-slate-400 block truncate">Snelle tijdelijke opslag tijdens gebruik</span>
+                                </div>
+                            </div>
+                            <span class="font-mono text-xs text-slate-500 shrink-0">&rarr;</span>
+                        </button>
+
+                        <button onclick="selectHardware('ssd')" data-hw="ssd" class="hw-btn w-full text-left p-3.5 sm:p-4 rounded-xl bg-bgCard border border-borderTech text-slate-300 hover:border-neonBlue/40 flex items-center justify-between gap-2 transition-all">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <span class="font-mono text-xs text-neonBlue shrink-0">05</span>
+                                <div class="truncate">
+                                    <span class="font-semibold block text-sm truncate">SSD (Opslag)</span>
+                                    <span class="text-xs text-slate-400 block truncate">Vaste opslag voor Windows, games en bestanden</span>
+                                </div>
+                            </div>
+                            <span class="font-mono text-xs text-slate-500 shrink-0">&rarr;</span>
+                        </button>
+                    </div>
+
+                    <!-- Detailweergave geselecteerd onderdeel -->
+                    <div class="lg:col-span-7 tech-card rounded-2xl p-5 sm:p-8 flex flex-col justify-between" id="hardware-detail-panel">
+                        <!-- Wordt gevuld via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visuele Onderdelen voor Schoolopdracht (Video + PDF Gids + Galerij) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                
+                <!-- 1. Embedded YouTube-video met uitleg over computerhardware -->
+                <div class="tech-card rounded-2xl p-4 sm:p-6 flex flex-col justify-between space-y-4 sm:space-y-5">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="font-mono text-xs text-neonBlue">// VISUEEL_ONDERDEEL_01</span>
+                            <span class="px-2 py-0.5 rounded bg-neonBlue/10 text-neonBlue font-mono text-[10px] sm:text-[11px] shrink-0">YOUTUBE VIDEO</span>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-white">Video: Uitleg over computerhardware</h3>
+                        <p class="text-xs sm:text-sm text-slate-400">
+                            Bekijk deze video met duidelijke uitleg over hoe alle onderdelen in een computer samenwerken, gevolgd door een korte samenvatting per onderdeel.
+                        </p>
+                    </div>
+
+                    <!-- Werkende Embedded YouTube Video -->
+                    <div class="rounded-xl bg-[#07090d] border border-borderTech overflow-hidden">
+                        <div class="aspect-video w-full bg-black">
+                            <iframe 
+                                class="w-full h-full" 
+                                src="https://www.youtube.com/embed/ExxFxD4OSZ0" 
+                                title="Uitleg over computerhardware en pc-onderdelen" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <!-- Samenvatting / Hoofdstukken onder de video -->
+                        <div class="p-3.5 bg-bgSecondary border-t border-borderTech">
+                            <p id="video-chapter-title" class="text-white font-semibold text-xs sm:text-sm">Samenvatting 1: Veilig een pc-behuizing openmaken</p>
+                            <p id="video-chapter-desc" class="text-xs text-slate-400 mt-1">
+                                Stroomkabel loskoppelen, statische elektriciteit voorkomen en het zijpaneel verwijderen om het moederbord te bekijken.
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-3 border-t border-borderTech bg-bgSecondary text-[11px] sm:text-xs font-mono">
+                            <button onclick="setVideoChapter(1)" id="vid-btn-1" class="p-2.5 text-neonBlue bg-neonBlue/10 border-r border-borderTech font-semibold truncate">
+                                01. Open
+                            </button>
+                            <button onclick="setVideoChapter(2)" id="vid-btn-2" class="p-2.5 text-slate-400 hover:text-white border-r border-borderTech truncate">
+                                02. Delen
+                            </button>
+                            <button onclick="setVideoChapter(3)" id="vid-btn-3" class="p-2.5 text-slate-400 hover:text-white truncate">
+                                03. Koeling
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Zelfgemaakte PDF-gids over pc-onderdelen -->
+                <div class="tech-card rounded-2xl p-4 sm:p-6 flex flex-col justify-between space-y-4 sm:space-y-5">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="font-mono text-xs text-neonBlue">// VISUEEL_ONDERDEEL_02</span>
+                            <span class="px-2 py-0.5 rounded bg-neonBlue/10 text-neonBlue font-mono text-[10px] sm:text-[11px] shrink-0">PDF DOCUMENT</span>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-white">Gids: Computeronderdelen & Hardware</h3>
+                        <p class="text-xs sm:text-sm text-slate-400">
+                            Mijn zelfgemaakte informatiedocument waarin alle belangrijke pc-onderdelen en hun functies overzichtelijk staan uitgelegd.
+                        </p>
+                    </div>
+
+                    <!-- Mini PDF Voorbeeldkaart -->
+                    <div class="rounded-xl bg-bgSecondary border border-borderTech p-4 space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-neonBlue/15 border border-neonBlue/30 flex items-center justify-center text-neonBlue font-mono text-xs font-bold shrink-0">
+                                PDF
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-xs sm:text-sm font-semibold text-white truncate">Hardware_Gids_Jurre_Vergouwe.pdf</p>
+                                <p class="text-xs text-slate-400">Door Jurre Vergouwe • Mavo 3</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Bevat uitleg over: Processor (CPU), Videokaart (GPU), Moederbord, Werkgeheugen (RAM), Opslag (SSD) en Voeding (PSU).
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:flex sm:flex-wrap gap-2.5 sm:gap-3">
+                        <button onclick="openPdfModal()" class="w-full sm:flex-1 px-4 py-2.5 rounded-xl bg-neonBlue text-bgMain font-semibold text-sm hover:bg-skyAccent transition-all text-center">
+                            Bekijk & Print PDF-gids
+                        </button>
+                        <button onclick="downloadHardwareTextFile()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-bgSecondary border border-borderTech text-white text-sm font-medium hover:border-neonBlue/50 transition-all text-center">
+                            Download tekstbestand
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fotogalerij / Showcase indeling -->
+            <div class="space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-1.5">
+                    <div>
+                        <span class="font-mono text-xs text-neonBlue">// SHOWCASE_GALERIJ</span>
+                        <h2 class="text-xl sm:text-2xl font-bold text-white mt-0.5">Hardware & Setup Overzicht</h2>
+                    </div>
+                    <p class="text-xs text-slate-400">Tik op "+ Eigen foto plaatsen" om een foto vanaf je telefoon of pc toe te voegen</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Kaart 1 -->
+                    <div class="tech-card rounded-xl p-4 space-y-3 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div id="gallery-slot-1" class="aspect-video rounded-lg bg-bgSecondary border border-borderTech flex items-center justify-center overflow-hidden relative">
+                                <svg class="w-12 h-12 text-neonBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <span class="font-mono text-[11px] text-neonBlue">SETUP // 01</span>
+                                <h3 class="font-semibold text-white text-sm">Gaming & Werkplek</h3>
+                                <p class="text-xs text-slate-400 mt-1">Mijn eigen plek om te gamen, huiswerk te maken en te ontwerpen.</p>
+                            </div>
+                        </div>
+                        <label class="cursor-pointer inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-bgSecondary border border-borderTech text-[11px] font-mono text-skyAccent hover:border-neonBlue transition-all">
+                            + Eigen foto plaatsen
+                            <input type="file" accept="image/*" class="hidden" onchange="uploadGalleryPhoto(event, 'gallery-slot-1')">
+                        </label>
+                    </div>
+
+                    <!-- Kaart 2 -->
+                    <div class="tech-card rounded-xl p-4 space-y-3 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div id="gallery-slot-2" class="aspect-video rounded-lg bg-bgSecondary border border-borderTech flex items-center justify-center overflow-hidden relative">
+                                <svg class="w-12 h-12 text-neonBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                            </div>
+                            <div>
+                                <span class="font-mono text-[11px] text-neonBlue">HARDWARE // 02</span>
+                                <h3 class="font-semibold text-white text-sm">Moederbord & Architectuur</h3>
+                                <p class="text-xs text-slate-400 mt-1">Alle aansluitingen voor processor, geheugen en uitbreidingskaarten.</p>
+                            </div>
+                        </div>
+                        <label class="cursor-pointer inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-bgSecondary border border-borderTech text-[11px] font-mono text-skyAccent hover:border-neonBlue transition-all">
+                            + Eigen foto plaatsen
+                            <input type="file" accept="image/*" class="hidden" onchange="uploadGalleryPhoto(event, 'gallery-slot-2')">
+                        </label>
+                    </div>
+
+                    <!-- Kaart 3 -->
+                    <div class="tech-card rounded-xl p-4 space-y-3 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div id="gallery-slot-3" class="aspect-video rounded-lg bg-bgSecondary border border-borderTech flex items-center justify-center overflow-hidden relative">
+                                <svg class="w-12 h-12 text-neonBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            </div>
+                            <div>
+                                <span class="font-mono text-[11px] text-neonBlue">ONDERZOEK // 03</span>
+                                <h3 class="font-semibold text-white text-sm">PC Uit Elkaar Halen</h3>
+                                <p class="text-xs text-slate-400 mt-1">Zelf onderdelen demonteren, schoonmaken en weer opbouwen.</p>
+                            </div>
+                        </div>
+                        <label class="cursor-pointer inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-bgSecondary border border-borderTech text-[11px] font-mono text-skyAccent hover:border-neonBlue transition-all">
+                            + Eigen foto plaatsen
+                            <input type="file" accept="image/*" class="hidden" onchange="uploadGalleryPhoto(event, 'gallery-slot-3')">
+                        </label>
+                    </div>
+
+                    <!-- Kaart 4 -->
+                    <div class="tech-card rounded-xl p-4 space-y-3 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div id="gallery-slot-4" class="aspect-video rounded-lg bg-bgSecondary border border-borderTech flex items-center justify-center overflow-hidden relative">
+                                <svg class="w-12 h-12 text-neonBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
+                            </div>
+                            <div>
+                                <span class="font-mono text-[11px] text-neonBlue">COMPONENTEN // 04</span>
+                                <h3 class="font-semibold text-white text-sm">Losse PC-onderdelen</h3>
+                                <p class="text-xs text-slate-400 mt-1">Geheugenmodules, ventilatoren, kabelmanagement en koelblokken.</p>
+                            </div>
+                        </div>
+                        <label class="cursor-pointer inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-bgSecondary border border-borderTech text-[11px] font-mono text-skyAccent hover:border-neonBlue transition-all">
+                            + Eigen foto plaatsen
+                            <input type="file" accept="image/*" class="hidden" onchange="uploadGalleryPhoto(event, 'gallery-slot-4')">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigatiebalk onderaan Freestyle -->
+            <div class="tech-card rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                    <p class="text-white font-semibold text-sm sm:text-base">Vragen over mijn projecten of hardware?</p>
+                    <p class="text-xs text-slate-400 mt-0.5">Ga naar de contactpagina om een bericht te sturen of bekijk mijn schoolopdrachten.</p>
+                </div>
+                <div class="grid grid-cols-2 sm:flex gap-2.5 w-full sm:w-auto">
+                    <button onclick="navigateTo('portfolio')" class="px-4 py-2.5 rounded-xl bg-bgSecondary border border-borderTech text-white font-medium text-xs sm:text-sm hover:border-neonBlue/50 transition-all text-center">
+                        &larr; Portfolio
+                    </button>
+                    <button onclick="navigateTo('contact')" class="px-4 py-2.5 rounded-xl bg-neonBlue text-bgMain font-semibold text-xs sm:text-sm hover:bg-skyAccent transition-all text-center">
+                        Contact &rarr;
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- PAGINA 4: CONTACT                                         -->
+        <!-- ========================================================= -->
+        <section id="page-contact" class="page-section space-y-6 sm:space-y-8">
+            <div class="border-b border-borderTech pb-5 sm:pb-6">
+                <span class="font-mono text-xs text-neonBlue">// VERBINDING_MAKEN</span>
+                <h1 class="text-2xl sm:text-4xl font-extrabold text-white mt-1">Contact</h1>
+                <p class="text-slate-400 text-sm sm:text-base mt-2 max-w-2xl">
+                    Heb je een vraag of wil je meer weten over mijn projecten? Stuur me gerust een bericht via onderstaand contactformulier of stuur een e-mail.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+                <!-- Contactgegevens -->
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="tech-card rounded-2xl p-5 sm:p-6 space-y-4 sm:space-y-5">
+                        <h2 class="text-lg sm:text-xl font-bold text-white">Mijn gegevens</h2>
+                        
+                        <div class="space-y-3 sm:space-y-4">
+                            <!-- Naam -->
+                            <div class="bg-bgSecondary border border-borderTech rounded-xl p-4">
+                                <span class="font-mono text-[11px] text-neonBlue block">NAAM</span>
+                                <span class="text-white font-semibold text-sm sm:text-base">Jurre Vergouwe</span>
+                            </div>
+
+                            <!-- E-mailadres + Kopieerknop -->
+                            <div class="bg-bgSecondary border border-borderTech rounded-xl p-4">
+                                <span class="font-mono text-[11px] text-neonBlue block">E-MAILADRES</span>
+                                <div class="flex items-center justify-between gap-2 mt-1">
+                                    <a href="mailto:Jurre@vergouwe.nl" class="text-white font-semibold text-sm sm:text-base hover:text-neonBlue transition-colors break-all">
+                                        Jurre@vergouwe.nl
+                                    </a>
+                                    <button onclick="copyEmail()" class="px-3 py-1.5 rounded-lg bg-bgCard border border-borderTech text-xs font-mono text-skyAccent hover:border-neonBlue transition-all shrink-0">
+                                        Kopieer
+                                    </button>
+                                </div>
+                                <p id="copy-feedback" class="text-xs text-neonBlue font-mono mt-1.5 hidden">
+                                    ✓ E-mailadres gekopieerd!
+                                </p>
+                            </div>
+
+                            <!-- School -->
+                            <div class="bg-bgSecondary border border-borderTech rounded-xl p-4">
+                                <span class="font-mono text-[11px] text-neonBlue block">SCHOOL</span>
+                                <span class="text-white font-semibold text-sm sm:text-base">Gemini College Ridderkerk</span>
+                                <span class="text-xs text-slate-400 block mt-0.5">Mavo 3</span>
+                            </div>
+
+                            <!-- Woonplaats -->
+                            <div class="bg-bgSecondary border border-borderTech rounded-xl p-4">
+                                <span class="font-mono text-[11px] text-neonBlue block">WOONPLAATS</span>
+                                <span class="text-white font-semibold text-sm sm:text-base">Ridderkerk</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactief Contactformulier -->
+                <div class="lg:col-span-7">
+                    <div class="tech-card rounded-2xl p-5 sm:p-8">
+                        <h2 class="text-lg sm:text-xl font-bold text-white mb-1">Stuur een bericht</h2>
+                        <p class="text-xs text-slate-400 mb-5 sm:mb-6">Vul het formulier in en ik neem zo snel mogelijk contact met je op.</p>
+
+                        <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="contact-name" class="block text-xs font-mono text-slate-300 mb-1.5">NAAM *</label>
+                                    <input 
+                                        type="text" 
+                                        id="contact-name" 
+                                        required 
+                                        placeholder="Jouw naam"
+                                        class="w-full px-4 py-3 rounded-xl bg-bgSecondary border border-borderTech text-white placeholder-slate-500 text-base sm:text-sm focus:outline-none focus:border-neonBlue transition-colors"
+                                    >
+                                </div>
+                                <div>
+                                    <label for="contact-email" class="block text-xs font-mono text-slate-300 mb-1.5">E-MAILADRES *</label>
+                                    <input 
+                                        type="email" 
+                                        id="contact-email" 
+                                        required 
+                                        placeholder="naam@voorbeeld.nl"
+                                        class="w-full px-4 py-3 rounded-xl bg-bgSecondary border border-borderTech text-white placeholder-slate-500 text-base sm:text-sm focus:outline-none focus:border-neonBlue transition-colors"
+                                    >
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="contact-subject" class="block text-xs font-mono text-slate-300 mb-1.5">ONDERWERP *</label>
+                                <input 
+                                    type="text" 
+                                    id="contact-subject" 
+                                    required 
+                                    placeholder="Bijv. Vraag over Hydro Charge of mijn portfolio"
+                                    class="w-full px-4 py-3 rounded-xl bg-bgSecondary border border-borderTech text-white placeholder-slate-500 text-base sm:text-sm focus:outline-none focus:border-neonBlue transition-colors"
+                                >
+                            </div>
+
+                            <div>
+                                <label for="contact-message" class="block text-xs font-mono text-slate-300 mb-1.5">BERICHT *</label>
+                                <textarea 
+                                    id="contact-message" 
+                                    rows="5" 
+                                    required 
+                                    placeholder="Typ hier je vraag of opmerking..."
+                                    class="w-full px-4 py-3 rounded-xl bg-bgSecondary border border-borderTech text-white placeholder-slate-500 text-base sm:text-sm focus:outline-none focus:border-neonBlue transition-colors"
+                                ></textarea>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:flex sm:flex-wrap items-center gap-3 pt-1">
+                                <button type="submit" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-neonBlue text-bgMain font-semibold text-sm hover:bg-skyAccent transition-all flex items-center justify-center gap-2 shadow-lg shadow-neonBlue/20">
+                                    <span>Bericht versturen</span>
+                                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                                </button>
+                                <button type="button" onclick="openMailClientWithForm()" class="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-bgSecondary border border-borderTech text-slate-200 font-medium text-sm hover:border-neonBlue/50 transition-all text-center">
+                                    Open in mailprogramma
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Verzendbevestiging (verschijnt na versturen) -->
+                        <div id="contact-success" class="hidden mt-6 p-5 rounded-xl bg-neonBlue/10 border border-neonBlue/40 space-y-2">
+                            <div class="flex items-center gap-2 text-neonBlue font-semibold text-base">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span>Bericht succesvol verzonden!</span>
+                            </div>
+                            <p id="contact-success-text" class="text-sm text-slate-300"></p>
+                            <button onclick="resetContactForm()" class="text-xs font-mono text-neonBlue underline pt-1">
+                                Nog een bericht sturen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Vaste Mobiele Navigatiebalk onderaan het scherm (alleen op telefoon) -->
+    <nav class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-[#0a0d12]/95 backdrop-blur-md border-t border-borderTech grid grid-cols-4 px-1 py-1.5" aria-label="Mobiele onderbalk">
+        <button onclick="navigateTo('home')" data-nav="home" class="nav-link active flex flex-col items-center justify-center py-1.5 rounded-lg text-[11px] font-medium text-slate-400">
+            <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+            <span>Home</span>
+        </button>
+        <button onclick="navigateTo('portfolio')" data-nav="portfolio" class="nav-link flex flex-col items-center justify-center py-1.5 rounded-lg text-[11px] font-medium text-slate-400">
+            <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+            <span>Portfolio</span>
+        </button>
+        <button onclick="navigateTo('freestyle')" data-nav="freestyle" class="nav-link flex flex-col items-center justify-center py-1.5 rounded-lg text-[11px] font-medium text-slate-400">
+            <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            <span>Freestyle</span>
+        </button>
+        <button onclick="navigateTo('contact')" data-nav="contact" class="nav-link flex flex-col items-center justify-center py-1.5 rounded-lg text-[11px] font-medium text-slate-400">
+            <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            <span>Contact</span>
+        </button>
+    </nav>
+
+    <!-- FOOTER (Op elke pagina zichtbaar) -->
+    <footer class="bg-[#07090d] border-t border-borderTech mt-10 sm:mt-16">
+
+    <!-- ========================================================= -->
+    <!-- MODAL 1: PROJECT DETAILS (PORTFOLIO)                      -->
+    <!-- ========================================================= -->
+    <div id="project-modal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center p-0 sm:p-4 bg-black/80 backdrop-blur-sm" onclick="closeProjectModal(event)">
+        <div class="bg-bgCard border-t sm:border border-neonBlue/40 rounded-t-2xl sm:rounded-2xl max-w-2xl w-full max-h-[88vh] overflow-y-auto p-5 sm:p-8 shadow-2xl space-y-5 sm:space-y-6" onclick="event.stopPropagation()">
+            <div class="flex items-start justify-between gap-3 border-b border-borderTech pb-4">
+                <div class="min-w-0">
+                    <span id="modal-category" class="font-mono text-xs text-neonBlue uppercase block"></span>
+                    <h3 id="modal-title" class="text-xl sm:text-2xl font-bold text-white mt-1 leading-snug"></h3>
+                </div>
+                <button onclick="closeProjectModal()" class="p-2 rounded-lg bg-bgSecondary border border-borderTech text-slate-400 hover:text-white shrink-0" aria-label="Sluiten">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <!-- Schematische illustratie van het project -->
+            <div id="modal-visual" class="rounded-xl bg-bgSecondary border border-borderTech p-6 flex items-center justify-center"></div>
+
+            <!-- Uitgebreide beschrijving -->
+            <div class="space-y-4 text-sm sm:text-base">
+                <div class="bg-bgSecondary border border-borderTech rounded-xl p-4">
+                    <h4 class="font-mono text-xs text-neonBlue mb-1">01 // WAT WAS DE OPDRACHT?</h4>
+                    <p id="modal-assignment" class="text-slate-200 leading-relaxed"></p>
+                </div>
+
+                <div class="bg-bgSecondary border border-borderTech rounded-xl p-4">
+                    <h4 class="font-mono text-xs text-neonBlue mb-1">02 // WAT HEB IK GEDAAN?</h4>
+                    <p id="modal-action" class="text-slate-200 leading-relaxed"></p>
+                    <ul id="modal-bullets" class="mt-3 space-y-1.5 text-sm text-slate-300 list-disc list-inside hidden"></ul>
+                </div>
+
+                <div class="bg-bgSecondary border border-borderTech rounded-xl p-4">
+                    <h4 class="font-mono text-xs text-neonBlue mb-1">03 // WAT HEB IK GELEERD?</h4>
+                    <p id="modal-learned" class="text-slate-200 leading-relaxed"></p>
+                </div>
+            </div>
+
+            <div class="flex justify-end pt-2">
+                <button onclick="closeProjectModal()" class="px-5 py-2.5 rounded-xl bg-neonBlue text-bgMain font-semibold text-sm hover:bg-skyAccent transition-all">
+                    Sluiten
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- MODAL 2: PDF-GIDS PREVIEW & PRINT (FREESTYLE)             -->
+    <!-- ========================================================= -->
+    <div id="pdf-modal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center p-0 sm:p-4 bg-black/80 backdrop-blur-sm" onclick="closePdfModal(event)">
+        <div class="bg-bgCard border-t sm:border border-neonBlue/40 rounded-t-2xl sm:rounded-2xl max-w-3xl w-full max-h-[88vh] overflow-y-auto p-5 sm:p-8 shadow-2xl space-y-5 sm:space-y-6" onclick="event.stopPropagation()">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-borderTech pb-4">
+                <div>
+                    <span class="font-mono text-xs text-neonBlue">// DOCUMENT_PREVIEW</span>
+                    <h3 class="text-lg sm:text-xl font-bold text-white">Gids: Computeronderdelen & Hardware</h3>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="window.print()" class="px-3.5 py-2 rounded-lg bg-neonBlue text-bgMain font-semibold text-xs hover:bg-skyAccent transition-all">
+                        Opslaan / Printen
+                    </button>
+                    <button onclick="closePdfModal()" class="p-2 rounded-lg bg-bgSecondary border border-borderTech text-slate-400 hover:text-white" aria-label="Sluiten">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Printbare inhoud -->
+            <div id="printable-pdf-guide" class="bg-bgSecondary border border-borderTech rounded-xl p-6 space-y-5 text-sm text-slate-200">
+                <div class="border-b border-borderTech pb-4">
+                    <p class="font-mono text-xs text-neonBlue">INFORMATIEDOCUMENT • TECHNOLOGIE & HARDWARE</p>
+                    <h4 class="text-2xl font-bold text-white mt-1">Hoe een computer vanbinnen werkt</h4>
+                    <p class="text-xs text-slate-400 mt-1">Gemaakt door: Jurre Vergouwe | Gemini College Ridderkerk (Mavo 3)</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="p-4 rounded-lg bg-bgCard border border-borderTech">
+                        <h5 class="font-bold text-neonBlue mb-1">1. Processor (CPU)</h5>
+                        <p class="text-xs text-slate-300 leading-relaxed">De Central Processing Unit is het brein van de pc. Alle berekeningen en opdrachten van programma's en games worden hier verwerkt.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-bgCard border border-borderTech">
+                        <h5 class="font-bold text-neonBlue mb-1">2. Videokaart (GPU)</h5>
+                        <p class="text-xs text-slate-300 leading-relaxed">Zorgt voor het berekenen en weergeven van beelden op de monitor. Vooral bij gaming is een sterke GPU belangrijk voor hoge framerates.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-bgCard border border-borderTech">
+                        <h5 class="font-bold text-neonBlue mb-1">3. Moederbord</h5>
+                        <p class="text-xs text-slate-300 leading-relaxed">De grote printplaat die alle onderdelen (CPU, RAM, GPU, SSD en voeding) met elkaar verbindt zodat ze kunnen samenwerken.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-bgCard border border-borderTech">
+                        <h5 class="font-bold text-neonBlue mb-1">4. Werkgeheugen (RAM)</h5>
+                        <p class="text-xs text-slate-300 leading-relaxed">Tijdelijk, supersnel geheugen waarin geopende programma's en games staan terwijl de computer aan staat.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-bgCard border border-borderTech">
+                        <h5 class="font-bold text-neonBlue mb-1">5. Opslag (SSD)</h5>
+                        <p class="text-xs text-slate-300 leading-relaxed">Solid State Drive waarop het besturingssysteem (Windows), games en bestanden blijvend worden opgeslagen.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-bgCard border border-borderTech">
+                        <h5 class="font-bold text-neonBlue mb-1">6. Voeding (PSU) & Koeling</h5>
+                        <p class="text-xs text-slate-300 leading-relaxed">De voeding levert de juiste stroom aan alle onderdelen, terwijl ventilatoren en koelblokken zorgen dat de pc niet oververhit raakt.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGICA -->
+    <script>
+        // =========================================================
+        // 1. PROJECTDATA (6 D&P OPDRACHTEN + 4 ANDERE VAKKEN)
+        // =========================================================
+        const projectsData = [
+            // --- 6 D&P OPDRACHTEN ---
+            {
+                id: 'hydro-charge',
+                category: 'dp',
+                categoryLabel: 'D&P-opdracht 01',
+                title: 'Hydro Charge',
+                shortDesc: 'Een compleet eigen merk sportwater bedacht, inclusief ingrediëntenonderzoek en een eigen verpakkingsontwerp.',
+                assignment: 'Een eigen merk sportwater bedenken.',
+                action: 'Ik heb een eigen sportwatermerk bedacht met de naam Hydro Charge. Ik heb onderzocht welke stoffen goed en minder goed zijn voor sporters. Daarna heb ik een eigen product bedacht en de verpakking ontworpen.',
+                bullets: [
+                    'Eigen merknaam en productidee ontwikkeld: Hydro Charge',
+                    'Onderzoek gedaan naar gezonde en minder goede stoffen voor sporters',
+                    'Een eigen verpakking en uitstraling ontworpen'
+                ],
+                learned: 'Ik heb geleerd om gericht onderzoek te doen, informatie te gebruiken en een productidee uit te werken tot een eigen ontwerp.',
+                svgIcon: `<svg class="w-24 h-20 text-neonBlue" viewBox="0 0 120 80" fill="none" stroke="currentColor">
+                    <rect x="44" y="8" width="32" height="8" rx="2" stroke-width="2"/>
+                    <path d="M40 22C40 18.6863 42.6863 16 46 16H74C77.3137 16 80 18.6863 80 22V66C80 70.4183 76.4183 74 72 74H48C43.5817 74 40 70.4183 40 66V22Z" stroke-width="2"/>
+                    <rect x="40" y="34" width="40" height="22" fill="rgba(0, 212, 255, 0.12)" stroke-width="1.5"/>
+                    <path d="M62 38L55 46H61L58 53L66 44H60L62 38Z" fill="currentColor" stroke="none"/>
+                </svg>`
+            },
+            {
+                id: 'eigen-logo',
+                category: 'dp',
+                categoryLabel: 'D&P-opdracht 02',
+                title: 'Mijn eigen logo',
+                shortDesc: 'Een herkenbaar logo ontworpen met een monitor, pc, toetsenbord en muis op basis van vier ontwerppijlers.',
+                assignment: 'Een eigen logo ontwerpen.',
+                action: 'Ik heb een logo gemaakt waarin een monitor, pc, toetsenbord en muis voorkomen. Daarbij heb ik nagedacht over vier eigenschappen:',
+                bullets: [
+                    'Tijdloos: een muis en toetsenbord blijven herkenbare computeronderdelen.',
+                    'Veelzijdig: het logo kan bijvoorbeeld op een sticker, laptop of pet worden gebruikt.',
+                    'Past bij deze tijd: computers worden door veel mensen gebruikt.',
+                    'Herkenbaar: verschillende computeronderdelen gecombineerd in één logo.'
+                ],
+                learned: 'Ik heb geleerd hoe je een eigen logo bedenkt en hoe je een ontwerp herkenbaar maakt.',
+                svgIcon: `<svg class="w-28 h-20 text-neonBlue" viewBox="0 0 140 80" fill="none" stroke="currentColor">
+                    <rect x="20" y="14" width="54" height="36" rx="4" stroke-width="2"/>
+                    <path d="M40 50L36 58H58L54 50" stroke-width="2"/>
+                    <rect x="84" y="14" width="22" height="44" rx="3" stroke-width="2"/>
+                    <circle cx="95" cy="24" r="2" fill="currentColor"/>
+                    <rect x="22" y="63" width="48" height="8" rx="2" stroke-width="1.8"/>
+                    <rect x="78" y="62" width="12" height="10" rx="5" stroke-width="1.8"/>
+                </svg>`
+            },
+            {
+                id: 'droomhuis',
+                category: 'dp',
+                categoryLabel: 'D&P-opdracht 03',
+                title: 'Mijn droomhuis',
+                shortDesc: 'Met Floorplanner een eigen droomhuis ontworpen met zelfgekozen indeling en aansluitende ruimtes.',
+                assignment: 'Je eigen droomhuis ontwerpen.',
+                action: 'Ik heb met Floorplanner mijn eigen droomhuis ontworpen. Ik kon zelf bepalen hoe het huis eruit kwam te zien en waar de verschillende ruimtes moesten komen.',
+                bullets: [
+                    'Plattegrond en ruimtes ingedeeld met Floorplanner',
+                    'Zelf keuzes gemaakt over inrichting en uitstraling'
+                ],
+                learned: 'Ik heb geleerd hoe je een huis indeelt en hoe verschillende ruimtes op elkaar aansluiten. Ook heb ik zelf keuzes moeten maken over het ontwerp.',
+                svgIcon: `<svg class="w-28 h-20 text-neonBlue" viewBox="0 0 140 80" fill="none" stroke="currentColor">
+                    <rect x="25" y="14" width="90" height="52" rx="2" stroke-width="2"/>
+                    <line x1="65" y1="14" x2="65" y2="44" stroke-width="1.8"/>
+                    <line x1="25" y1="44" x2="52" y2="44" stroke-width="1.8"/>
+                    <line x1="82" y1="38" x2="115" y2="38" stroke-width="1.8"/>
+                    <path d="M65 44C72 44 77 49 77 56" stroke-width="1.4" stroke-dasharray="3 2"/>
+                    <rect x="33" y="21" width="18" height="12" fill="rgba(0, 212, 255, 0.12)" stroke-width="1.2"/>
+                </svg>`
+            },
+            {
+                id: 'houten-vliegtuig',
+                category: 'dp',
+                categoryLabel: 'D&P-opdracht 04',
+                title: 'Een werkend vliegtuig van hout',
+                shortDesc: 'In samenwerking een houten vliegtuig gebouwd dat daadwerkelijk kon werken.',
+                assignment: 'Met hout een soort werkend vliegtuig maken.',
+                action: 'Ik heb samen met anderen een vliegtuig van hout gemaakt. Het was de bedoeling dat het vliegtuig daadwerkelijk kon werken.',
+                bullets: [
+                    'Samenwerken aan een technisch bouwproject',
+                    'Werken met hout en onderdelen op elkaar afstemmen'
+                ],
+                learned: 'Ik heb ervaring opgedaan met het maken van een technisch voorwerp en het werken met hout.',
+                svgIcon: `<svg class="w-28 h-20 text-neonBlue" viewBox="0 0 140 80" fill="none" stroke="currentColor">
+                    <path d="M22 44L112 34L118 40L112 46L22 44Z" stroke-width="2"/>
+                    <path d="M56 16L76 37L64 39L48 18L56 16Z" fill="rgba(0, 212, 255, 0.12)" stroke-width="1.8"/>
+                    <path d="M56 64L76 43L64 41L48 62L56 64Z" fill="rgba(0, 212, 255, 0.12)" stroke-width="1.8"/>
+                    <line x1="120" y1="24" x2="120" y2="56" stroke-width="2"/>
+                </svg>`
+            },
+            {
+                id: 'stemacteur',
+                category: 'dp',
+                categoryLabel: 'D&P-opdracht 05',
+                title: 'Stemacteur worden: Spider-Man: Into the Spider-Verse',
+                shortDesc: 'Een filmfragment uit Spider-Man: Into the Spider-Verse ingesproken met aandacht voor stem en emotie.',
+                assignment: 'Een stemacteur worden en een filmfragment inspreken.',
+                action: 'Ik heb gekozen voor de film Spider-Man: Into the Spider-Verse. Ik moest een stukje uit de film inspreken en proberen de stemmen en emoties goed over te brengen.',
+                bullets: [
+                    'Fragment uit Spider-Man: Into the Spider-Verse geselecteerd',
+                    'Geoefend met intonatie, emotie en synchroon inspreken'
+                ],
+                learned: 'Ik heb geoefend met spreken, timing en het gebruiken van mijn stem om een personage tot leven te brengen.',
+                svgIcon: `<svg class="w-28 h-20 text-neonBlue" viewBox="0 0 140 80" fill="none" stroke="currentColor">
+                    <rect x="58" y="14" width="24" height="36" rx="12" stroke-width="2"/>
+                    <path d="M48 36C48 48.1503 57.8497 58 70 58C82.1503 58 92 48.1503 92 36" stroke-width="2"/>
+                    <line x1="70" y1="58" x2="70" y2="68" stroke-width="2"/>
+                    <line x1="56" y1="68" x2="84" y2="68" stroke-width="2"/>
+                    <path d="M32 28V44M24 32V40M108 28V44M116 32V40" stroke-width="2" stroke-linecap="round"/>
+                </svg>`
+            },
+            {
+                id: 'stop-motion',
+                category: 'dp',
+                categoryLabel: 'D&P-opdracht 06',
+                title: 'Stop-motion',
+                shortDesc: 'Een eigen stop-motionfilmpje gemaakt door beeld voor beeld foto’s vast te leggen.',
+                assignment: 'Een eigen stop-motionfilmpje maken.',
+                action: 'Ik heb een filmpje gemaakt met stop-motion. Hierbij maak je meerdere foto’s en verplaats je een voorwerp telkens een klein stukje. Als je de foto’s achter elkaar afspeelt, lijkt het alsof het voorwerp beweegt.',
+                bullets: [
+                    'Stap-voor-stap foto’s gemaakt met kleine verplaatsingen',
+                    'Foto’s gemonteerd tot een vloeiend bewegend filmpje'
+                ],
+                learned: 'Ik heb geleerd hoe stop-motion werkt en dat je nauwkeurig moet werken om een filmpje goed te laten bewegen.',
+                svgIcon: `<svg class="w-28 h-20 text-neonBlue" viewBox="0 0 140 80" fill="none" stroke="currentColor">
+                    <rect x="18" y="18" width="104" height="44" rx="4" stroke-width="2"/>
+                    <line x1="52" y1="18" x2="52" y2="62" stroke-width="1.6"/>
+                    <line x1="88" y1="18" x2="88" y2="62" stroke-width="1.6"/>
+                    <circle cx="35" cy="46" r="5" fill="currentColor"/>
+                    <circle cx="70" cy="38" r="5" fill="currentColor"/>
+                    <circle cx="105" cy="30" r="5" fill="currentColor"/>
+                </svg>`
+            },
+
+            // --- 4 ANDERE SCHOOLOPDRACHTEN ---
+            {
+                id: 'biologie-cel',
+                category: 'other',
+                categoryLabel: 'Biologie • Andere vakken',
+                title: 'Biologie: Dierlijke en plantaardige cel',
+                shortDesc: 'Twee celmodellen gebouwd om de onderdelen en verschillen tussen dierlijke en plantaardige cellen te tonen.',
+                assignment: 'Een dierlijke cel en een plantaardige cel maken.',
+                action: 'Ik heb een dierlijke cel en een plantencel gemaakt. Hiermee kon ik de verschillende onderdelen en verschillen tussen de twee cellen laten zien.',
+                bullets: [
+                    'Model van een dierlijke cel en een plantaardige cel gebouwd',
+                    'Celonderdelen zoals celwand en chloroplasten zichtbaar gemaakt'
+                ],
+                learned: 'Ik heb geleerd dat een plantencel onder andere een celwand en chloroplasten heeft en een dierlijke cel niet.',
+                svgIcon: `<svg class="w-28 h-20 text-skyAccent" viewBox="0 0 140 80" fill="none" stroke="currentColor">
+                    <rect x="20" y="16" width="44" height="48" rx="8" stroke-width="2"/>
+                    <rect x="25" y="21" width="34" height="38" rx="5" stroke-width="1.2" stroke-dasharray="3 2"/>
+                    <circle cx="42" cy="40" r="7" fill="rgba(56, 189, 248, 0.2)" stroke-width="1.6"/>
+                    <ellipse cx="98" cy="40" rx="22" ry="24" stroke-width="2"/>
+                    <circle cx="98" cy="40" r="7" fill="rgba(56, 189, 248, 0.2)" stroke-width="1.6"/>
+                </svg>`
+            },
+            {
+                id: 'bv-mythologisch',
+                category: 'other',
+                categoryLabel: 'Beeldende vorming • Andere vakken',
+                title: 'Beeldende vorming: Mythologisch wezen',
+                shortDesc: 'Een eigen kunstwerk ontworpen en uitgewerkt waarin een mythologisch wezen centraal staat.',
+                assignment: 'Een kunstwerk maken met een mythologisch wezen.',
+                action: 'Ik heb voor beeldende vorming een eigen kunstwerk gemaakt waarin een mythologisch wezen centraal stond.',
+                bullets: [
+                    'Eigen ontwerp bedacht rondom een mythologisch thema',
+                    'Creatief uitgewerkt tot een compleet kunstwerk'
+                ],
+                learned: 'Ik heb geoefend met creatief denken en het uitwerken van een eigen idee tot een kunstwerk.',
+                svgIcon: `<svg class="w-28 h-20 text-skyAccent" viewBox="0 0 140 80" fill="none" stroke="currentColor">
+                    <rect x="34" y="12" width="72" height="56" rx="3" stroke-width="2"/>
+                    <rect x="40" y="18" width="60" height="44" stroke-width="1.2"/>
+                    <path d="M52 50C54 34 66 26 70 26C74 26 86 34 88 50" stroke-width="1.8"/>
+                    <path d="M58 30L50 22M82 30L90 22" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>`
+            },
+            {
+                id: 'bv-papier-mache',
+                category: 'other',
+                categoryLabel: 'Beeldende vorming • Andere vakken',
+                title: 'Beeldende vorming: Papier-maché',
+                shortDesc: 'Een 3D-kunstwerk opgebouwd met lagen papier en lijm over een basisvorm.',
+                assignment: 'Iets maken met papier-maché.',
+                action: 'Ik heb een voorwerp of kunstwerk gemaakt met papier-maché. Hierbij werk je met lagen papier en lijm die je over een bepaalde vorm aanbrengt.',
+                bullets: [
+                    'Basisvorm opgebouwd en verstevigd',
+                    'Meerdere lagen papier en lijm aangebracht en afgewerkt'
+                ],
+                learned: 'Ik heb kennisgemaakt met een andere manier van knutselen en het opbouwen van een kunstwerk met verschillende lagen.',
+                svgIcon: `<svg class="w-28 h-20 text-skyAccent" viewBox="0 0 140 80" fill="none" stroke="currentColor">
+                    <path d="M70 16L104 32L70 48L36 32L70 16Z" fill="rgba(56, 189, 248, 0.12)" stroke-width="2"/>
+                    <path d="M36 42L70 58L104 42" stroke-width="1.8"/>
+                    <path d="M36 52L70 68L104 52" stroke-width="1.8"/>
+                </svg>`
+            },
+            {
+                id: 'nask-elektriciteit',
+                category: 'other',
+                categoryLabel: 'NaSk • Andere vakken',
+                title: 'NaSk: Elektriciteitsproefje',
+                shortDesc: 'Een praktisch natuurkunde-experiment uitgevoerd over elektriciteit en stroomkringen.',
+                assignment: 'Een proefje doen over elektriciteit.',
+                action: 'Ik heb bij NaSk een proefje uitgevoerd over elektriciteit.',
+                bullets: [
+                    'Onderdelen aangesloten om een gesloten stroomkring te maken',
+                    'Gekeken hoe elektrische stroom door de schakeling loopt'
+                ],
+                learned: 'Ik heb meer geleerd over elektriciteit en hoe een stroomkring werkt.',
+                svgIcon: `<svg class="w-28 h-20 text-skyAccent" viewBox="0 0 140 80" fill="none" stroke="currentColor">
+                    <rect x="34" y="20" width="72" height="40" rx="4" stroke-width="1.8"/>
+                    <line x1="26" y1="36" x2="42" y2="36" stroke-width="2.5"/>
+                    <line x1="30" y1="44" x2="38" y2="44" stroke-width="2.5"/>
+                    <circle cx="106" cy="40" r="9" fill="#090b10" stroke-width="2"/>
+                    <path d="M102 36L110 44M110 36L102 44" stroke-width="1.6"/>
+                </svg>`
+            }
+        ];
+
+        // =========================================================
+        // 2. HARDWARE EXPLORER DATA (FREESTYLE PAGINA)
+        // =========================================================
+        const hardwareData = {
+            cpu: {
+                code: 'HW.01 // CENTRAL PROCESSING UNIT',
+                title: 'CPU (Processor)',
+                subtitle: 'Het rekenbrein van de computer',
+                description: 'De processor (CPU) voert alle berekeningen en opdrachten uit. Zodra je een game opstart, een programma opent of op internet surft, verwerkt de CPU miljoenen instructies per seconde.',
+                whyInteresting: 'Als je een computer openmaakt, zit de CPU onder het grote koelblok of de waterkoeling op het moederbord. Zonder goede koelpasta en koeler wordt deze chip heel snel warm.',
+                specs: ['Kloksnelheid (GHz)', 'Aantal cores & threads', 'Koeling & koelpasta']
+            },
+            gpu: {
+                code: 'HW.02 // GRAPHICS PROCESSING UNIT',
+                title: 'GPU (Videokaart)',
+                subtitle: 'Verantwoordelijk voor alle beelden en 3D-graphics',
+                description: 'De videokaart berekent alles wat je op je beeldscherm ziet. Bij gamen zorgt de GPU ervoor dat 3D-werelden, schaduwen en bewegingen vloeiend (met hoge FPS) op je monitor verschijnen.',
+                whyInteresting: 'De videokaart is vaak het grootste onderdeel in een gaming-pc, met eigen ventilatoren en eigen videogeheugen (VRAM).',
+                specs: ['VRAM (Videogeheugen)', 'FPS in games', 'PCIe-slot op moederbord']
+            },
+            mobo: {
+                code: 'HW.03 // MOTHERBOARD',
+                title: 'Moederbord',
+                subtitle: 'De centrale printplaat die alles verbindt',
+                description: 'Het moederbord is het fundament van de computer. Alle onderdelen — zoals de processor, het werkgeheugen, de videokaart, de SSD en de voeding — worden hierop aangesloten zodat ze met elkaar kunnen communiceren.',
+                whyInteresting: 'Op een moederbord zie je alle koperen baantjes, slots en aansluitingen lopen. Dat maakt het super interessant om te bekijken als je een pc uit elkaar haalt.',
+                specs: ['CPU-socket', 'RAM-slots', 'M.2 & SATA-aansluitingen']
+            },
+            ram: {
+                code: 'HW.04 // RANDOM ACCESS MEMORY',
+                title: 'RAM (Werkgeheugen)',
+                subtitle: 'Supersnelle tijdelijke opslag',
+                description: 'Het werkgeheugen slaat gegevens tijdelijk op van programma’s en games die op dat moment openstaan. Omdat RAM veel sneller is dan een harde schijf, kan de processor direct bij deze gegevens.',
+                whyInteresting: 'RAM-latjes klik je heel makkelijk in en uit de geheugenslots naast de processor. Zodra de computer uitgaat, wordt het RAM-geheugen weer leeggemaakt.',
+                specs: ['Capaciteit (bijv. 16GB / 32GB)', 'DDR4 / DDR5 snelheid', 'Dual-channel opstelling']
+            },
+            ssd: {
+                code: 'HW.05 // SOLID STATE DRIVE',
+                title: 'SSD (Opslag)',
+                subtitle: 'Blijvende opslag zonder bewegende onderdelen',
+                description: 'Op de SSD staan Windows, al je games, schoolbestanden en programma’s blijvend opgeslagen — ook als de stroom eraf gaat. Een moderne NVMe M.2 SSD zorgt ervoor dat een pc binnen enkele seconden opstart.',
+                whyInteresting: 'Vroeger gebruikten computers langzame harde schijven met draaiende schijfjes; moderne M.2 SSD’s zijn zo klein als een kauwgomstripje en razendsnel.',
+                specs: ['NVMe M.2 of SATA', 'Opslagruimte (GB / TB)', 'Snelle laadtijden']
+            }
+        };
+
+        // =========================================================
+        // 3. NAVIGATIE & PAGINA WISSELEN
+        // =========================================================
+        function navigateTo(pageId) {
+            // Verberg alle pagina's
+            document.querySelectorAll('.page-section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+
+            // Toon gekozen pagina
+            const target = document.getElementById(`page-${pageId}`);
+            if (target) {
+                target.classList.add('active');
+            }
+
+            // Update actieve staat in desktop & mobiel menu
+            document.querySelectorAll('.nav-link').forEach(btn => {
+                if (btn.dataset.nav === pageId) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Sluit mobiel menu indien open
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+
+            // Scroll naar boven
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        function openProjectFromHome(projectId) {
+            navigateTo('portfolio');
+            filterProjects('all');
+            setTimeout(() => {
+                openProjectModal(projectId);
+            }, 150);
+        }
+
+        // =========================================================
+        // 4. PORTFOLIO RENDEREN, FILTEREN & MODAL
+        // =========================================================
+        function renderProjects(filter = 'all') {
+            const grid = document.getElementById('projects-grid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' 
+                ? projectsData 
+                : projectsData.filter(p => p.category === filter);
+
+            filtered.forEach(project => {
+                const isDp = project.category === 'dp';
+                const badgeClass = isDp 
+                    ? 'bg-neonBlue/10 text-neonBlue border-neonBlue/30' 
+                    : 'bg-skyAccent/10 text-skyAccent border-skyAccent/30';
+
+                const card = document.createElement('article');
+                card.className = 'tech-card rounded-2xl p-6 flex flex-col justify-between space-y-5';
+                card.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="px-2.5 py-1 rounded-md border font-mono text-[11px] ${badgeClass}">
+                                ${project.categoryLabel}
+                            </span>
+                        </div>
+
+                        <!-- Strakke schematische illustratie -->
+                        <div class="h-28 rounded-xl bg-bgSecondary border border-borderTech flex items-center justify-center">
+                            ${project.svgIcon}
+                        </div>
+
+                        <div class="space-y-2">
+                            <h2 class="text-xl font-bold text-white leading-snug">${project.title}</h2>
+                            <p class="text-sm text-slate-300 leading-relaxed">${project.shortDesc}</p>
+                        </div>
+
+                        <div class="pt-2 border-t border-borderTech/80 space-y-1.5 text-xs">
+                            <p class="text-slate-400"><strong class="text-slate-200">Opdracht:</strong> ${project.assignment}</p>
+                            <p class="text-slate-400 line-clamp-2"><strong class="text-slate-200">Geleerd:</strong> ${project.learned}</p>
+                        </div>
+                    </div>
+
+                    <button onclick="openProjectModal('${project.id}')" class="w-full py-2.5 px-4 rounded-xl bg-bgSecondary border border-borderTech text-neonBlue font-semibold text-sm hover:bg-neonBlue hover:text-bgMain hover:border-neonBlue transition-all flex items-center justify-center gap-2">
+                        <span>Bekijk alle details</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                    </button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterProjects(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.dataset.filter === category) {
+                    btn.classList.add('bg-neonBlue', 'text-bgMain');
+                    btn.classList.remove('bg-bgCard', 'border', 'border-borderTech', 'text-slate-300');
+                } else {
+                    btn.classList.remove('bg-neonBlue', 'text-bgMain');
+                    btn.classList.add('bg-bgCard', 'border', 'border-borderTech', 'text-slate-300');
+                }
+            });
+            renderProjects(category);
+        }
+
+        function openProjectModal(projectId) {
+            const project = projectsData.find(p => p.id === projectId);
+            if (!project) return;
+
+            document.getElementById('modal-category').textContent = `// ${project.categoryLabel}`;
+            document.getElementById('modal-title').textContent = project.title;
+            document.getElementById('modal-visual').innerHTML = project.svgIcon;
+            document.getElementById('modal-assignment').textContent = project.assignment;
+            document.getElementById('modal-action').textContent = project.action;
+            document.getElementById('modal-learned').textContent = project.learned;
+
+            const bulletsEl = document.getElementById('modal-bullets');
+            if (project.bullets && project.bullets.length > 0) {
+                bulletsEl.innerHTML = project.bullets.map(b => `<li>${b}</li>`).join('');
+                bulletsEl.classList.remove('hidden');
+            } else {
+                bulletsEl.classList.add('hidden');
+            }
+
+            const modal = document.getElementById('project-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeProjectModal() {
+            const modal = document.getElementById('project-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // =========================================================
+        // 5. FREESTYLE: HARDWARE SELECTOR, VIDEO & PDF
+        // =========================================================
+        function selectHardware(hwKey) {
+            const data = hardwareData[hwKey];
+            if (!data) return;
+
+            // Update actieve knop
+            document.querySelectorAll('.hw-btn').forEach(btn => {
+                if (btn.dataset.hw === hwKey) {
+                    btn.classList.add('border-neonBlue', 'text-white');
+                    btn.classList.remove('border-borderTech', 'text-slate-300');
+                } else {
+                    btn.classList.remove('border-neonBlue', 'text-white');
+                    btn.classList.add('border-borderTech', 'text-slate-300');
+                }
+            });
+
+            // Vul detailpaneel
+            const panel = document.getElementById('hardware-detail-panel');
+            panel.innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between border-b border-borderTech pb-3">
+                        <span class="font-mono text-xs text-neonBlue">${data.code}</span>
+                        <span class="px-2 py-0.5 rounded bg-neonBlue/10 text-neonBlue font-mono text-[11px]">ACTIEF</span>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-white">${data.title}</h3>
+                        <p class="text-sm text-skyAccent font-medium mt-0.5">${data.subtitle}</p>
+                    </div>
+                    <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                        ${data.description}
+                    </p>
+                    <div class="bg-bgSecondary border border-borderTech rounded-xl p-4">
+                        <span class="font-mono text-xs text-neonBlue block mb-1">// WAAROM_DIT_INTERESSANT_IS</span>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">${data.whyInteresting}</p>
+                    </div>
+                </div>
+                <div class="pt-4 mt-4 border-t border-borderTech flex flex-wrap gap-2">
+                    ${data.specs.map(spec => `<span class="px-3 py-1 rounded-lg bg-bgSecondary border border-borderTech font-mono text-xs text-slate-300">${spec}</span>`).join('')}
+                </div>
+            `;
+        }
+
+        function setVideoChapter(chapter) {
+            const chapters = {
+                1: {
+                    title: 'Hoofdstuk 1: Veilig een pc-behuizing openmaken',
+                    desc: 'Stroomkabel loskoppelen, statische elektriciteit voorkomen en het zijpaneel verwijderen om het moederbord te bekijken.'
+                },
+                2: {
+                    title: 'Hoofdstuk 2: De belangrijkste onderdelen aanwijzen',
+                    desc: 'Waar zitten de processor (CPU), videokaart (GPU), het RAM-geheugen en de SSD op het moederbord?'
+                },
+                3: {
+                    title: 'Hoofdstuk 3: Koeling, ventilatoren en kabelmanagement',
+                    desc: 'Hoe koude lucht de kast inkomt, warme lucht wordt afgevoerd en waarom nette kabels zorgen voor betere prestaties.'
+                }
+            };
+
+            document.getElementById('video-chapter-title').textContent = chapters[chapter].title;
+            document.getElementById('video-chapter-desc').textContent = chapters[chapter].desc;
+
+            [1, 2, 3].forEach(num => {
+                const btn = document.getElementById(`vid-btn-${num}`);
+                if (num === chapter) {
+                    btn.classList.add('text-neonBlue', 'bg-neonBlue/10', 'font-semibold');
+                    btn.classList.remove('text-slate-400');
+                } else {
+                    btn.classList.remove('text-neonBlue', 'bg-neonBlue/10', 'font-semibold');
+                    btn.classList.add('text-slate-400');
+                }
+            });
+        }
+
+        function openPdfModal() {
+            const modal = document.getElementById('pdf-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closePdfModal() {
+            const modal = document.getElementById('pdf-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function downloadHardwareTextFile() {
+            const content = [
+                'GIDS: COMPUTERONDERDELEN & HARDWARE',
+                'Door: Jurre Vergouwe (14 jaar) - Gemini College Ridderkerk (Mavo 3)',
+                '==================================================================',
+                '',
+                '1. PROCESSOR (CPU)',
+                'Het rekenbrein van de computer. Voert alle berekeningen en opdrachten uit.',
+                '',
+                '2. VIDEOKAART (GPU)',
+                'Zorgt voor het berekenen en weergeven van beelden en 3D-graphics op de monitor.',
+                '',
+                '3. MOEDERBORD',
+                'De centrale printplaat die alle onderdelen met elkaar verbindt.',
+                '',
+                '4. WERKGEHEUGEN (RAM)',
+                'Tijdelijk, supersnel geheugen voor geopende programma’s en games.',
+                '',
+                '5. OPSLAG (SSD)',
+                'Blijvende opslag voor Windows, games en bestanden zonder bewegende delen.',
+                '',
+                '6. VOEDING (PSU) & KOELING',
+                'Levert stroom aan alle onderdelen en houdt de temperatuur laag.'
+            ].join('\n');
+
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Hardware_Gids_Jurre_Vergouwe.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // =========================================================
+        // 6. CONTACTPAGINA: KOPIËREN & FORMULIER
+        // =========================================================
+        function copyEmail() {
+            const tempInput = document.createElement('input');
+            tempInput.value = 'Jurre@vergouwe.nl';
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            const feedback = document.getElementById('copy-feedback');
+            feedback.classList.remove('hidden');
+            setTimeout(() => {
+                feedback.classList.add('hidden');
+            }, 3000);
+        }
+
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('contact-name').value.trim();
+            const subject = document.getElementById('contact-subject').value.trim();
+
+            const form = document.getElementById('contact-form');
+            const successBox = document.getElementById('contact-success');
+            const successText = document.getElementById('contact-success-text');
+
+            successText.textContent = `Bedankt voor je bericht, ${name}! Je bericht met onderwerp "${subject}" is verzonden naar Jurre Vergouwe (Jurre@vergouwe.nl).`;
+            form.classList.add('hidden');
+            successBox.classList.remove('hidden');
+        }
+
+        function resetContactForm() {
+            const form = document.getElementById('contact-form');
+            const successBox = document.getElementById('contact-success');
+            form.reset();
+            successBox.classList.add('hidden');
+            form.classList.remove('hidden');
+        }
+
+        function openMailClientWithForm() {
+            const name = document.getElementById('contact-name').value.trim();
+            const subject = document.getElementById('contact-subject').value.trim() || 'Bericht via portfolio';
+            const message = document.getElementById('contact-message').value.trim();
+            const body = encodeURIComponent(`${message}\n\nGroeten,\n${name}`);
+            window.location.href = `mailto:Jurre@vergouwe.nl?subject=${encodeURIComponent(subject)}&body=${body}`;
+        }
+
+        function previewLocalProfileImage(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.getElementById('jurre-profile-img');
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function uploadGalleryPhoto(event, slotId) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const slot = document.getElementById(slotId);
+                slot.innerHTML = `<img src="${e.target.result}" alt="Eigen upload" class="w-full h-full object-cover">`;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // =========================================================
+        // INITIALISATIE BIJ LADEN
+        // =========================================================
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProjects('all');
+            selectHardware('cpu');
+        });
+    </script>
+</body>
+</html>
